@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Collaborative Editor</title>
+</head>
+<body>
+  <textarea id="editor"></textarea>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io.connect();
+    const editor = document.getElementById('editor');
+
+    editor.addEventListener('keyup', () => {
+      socket.emit('editText', editor.value);
+    });
+
+    socket.on('updateText', (text) => {
+      editor.value = text;
+    });
+  </script>
+</body>
+</html>
